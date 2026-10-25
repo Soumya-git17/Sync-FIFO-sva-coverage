@@ -1,13 +1,12 @@
 module sync_fifo #(parameter DEPTH=8, DATA_WIDTH=8) (
-    input logic clk, rst_n,
-    input logic w_en, r_en,
-    input logic [DATA_WIDTH-1:0] data_in,
+    input  logic clk, rst_n,
+    input  logic w_en, r_en,
+    input  logic [DATA_WIDTH-1:0] data_in,
     output logic [DATA_WIDTH-1:0] data_out,
     output logic full, empty
 );
 
 initial assert (DEPTH >= 2 && (DEPTH & (DEPTH-1)) == 0);
-// else $fatal(1, "sync_fifo: DEPTH must be a power of 2 and >= 2");
 
 logic [$clog2(DEPTH)-1:0] w_ptr, r_ptr;
 logic [DATA_WIDTH-1:0] fifo[0:DEPTH-1];
